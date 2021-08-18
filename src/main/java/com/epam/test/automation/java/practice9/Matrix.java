@@ -106,9 +106,18 @@ public class Matrix {
      * @throws MatrixException if incompatible matrix sizes, returns message "Incompatible matrix sizes"
      */
     public Matrix addition(Matrix matrix) throws MatrixException {
-        Matrix matrixResult = matrix;
-        matrixResult = matrixResult.addition(matrix);
-        return matrixResult;
+        Matrix resMatrix = new Matrix(this.matrix);
+        if (!(resMatrix.rows() != matrix.rows())){
+            throw new MatrixException("Incompatible matrix sizes");
+        }
+        if (resMatrix.columns() != matrix.columns()){
+            throw new MatrixException("Incompatible matrix sizes");
+        }
+        
+
+
+        return resMatrix;
+
     }
 
     /**
