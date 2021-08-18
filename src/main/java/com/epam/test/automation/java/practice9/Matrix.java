@@ -113,11 +113,13 @@ public class Matrix {
         if (resMatrix.columns() != matrix.columns()){
             throw new MatrixException("Incompatible matrix sizes");
         }
-        
+        for (int i = 0; i < resMatrix.rows(); i++) {
 
-
+            for (int j = 0; j < resMatrix.columns(); j++) {
+                resMatrix.setValue(i,j,(resMatrix.getValue(i,j) + matrix.getValue(i,j)));
+            }
+        }
         return resMatrix;
-
     }
 
     /**
