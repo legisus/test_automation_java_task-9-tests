@@ -4,6 +4,8 @@ import java.text.DecimalFormat;
 
 public class Matrix {
     private double[][] matrix;
+    private int row;
+    private int column;
 
 
     /**
@@ -15,8 +17,16 @@ public class Matrix {
      * @return Returns a new instance of the matrix with the specified parameters
      */
     public Matrix(int row, int column) {
-
+        this.row = row;
+        this.column = column;
         matrix = new double[row][column];
+
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < column; j++) {
+                matrix[i][j] = 0;
+            }
+        }
+
     }
 
     /**
