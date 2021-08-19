@@ -4,8 +4,6 @@ import java.text.DecimalFormat;
 
 public class Matrix {
     private double[][] matrix;
-    private int row;
-    private int column;
 
 
     /**
@@ -17,8 +15,6 @@ public class Matrix {
      * @return Returns a new instance of the matrix with the specified parameters
      */
     public Matrix(int row, int column) {
-        this.row = row;
-        this.column = column;
         matrix = new double[row][column];
 
         for (int i = 0; i < row; i++) {
@@ -117,19 +113,17 @@ public class Matrix {
      */
     public Matrix addition(Matrix matrix) throws MatrixException {
         Matrix resMatrix = new Matrix(this.matrix);
-        if (!(resMatrix.rows() != matrix.rows())){
-            throw new MatrixException("Incompatible matrix sizes");
-        }
-        if (resMatrix.columns() != matrix.columns()){
-            throw new MatrixException("Incompatible matrix sizes");
-        }
-        for (int i = 0; i < resMatrix.rows(); i++) {
+        if (resMatrix.rows() == matrix.rows() && resMatrix.columns() == matrix.columns()){
+            for (int i = 0; i < resMatrix.rows(); i++) {
 
-            for (int j = 0; j < resMatrix.columns(); j++) {
-                resMatrix.setValue(i,j,(resMatrix.getValue(i,j) + matrix.getValue(i,j)));
+                for (int j = 0; j < resMatrix.columns(); j++) {
+                    resMatrix.setValue(i,j,(resMatrix.getValue(i,j) + matrix.getValue(i,j)));
+                }
             }
+            return resMatrix;
+        }else {
+            throw new MatrixException("Incompatible matrix sizes");
         }
-        return resMatrix;
     }
 
     /**
@@ -141,8 +135,18 @@ public class Matrix {
      * @throws MatrixException if incompatible matrix sizes, returns message "Incompatible matrix sizes"
      */
     public Matrix subtraction(final Matrix matrix) throws MatrixException {
-        //TODO: Delete line below and write your own solution;
-        throw new UnsupportedOperationException();
+        Matrix resMatrix = new Matrix(this.matrix);
+        if (resMatrix.rows() == matrix.rows() && resMatrix.columns() == matrix.columns()){
+            for (int i = 0; i < resMatrix.rows(); i++) {
+
+                for (int j = 0; j < resMatrix.columns(); j++) {
+                    resMatrix.setValue(i,j,(resMatrix.getValue(i,j) - matrix.getValue(i,j)));
+                }
+            }
+            return resMatrix;
+        }else {
+            throw new MatrixException("Incompatible matrix sizes");
+        }
     }
 
     /**
