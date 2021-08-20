@@ -16,13 +16,6 @@ public class Matrix {
      */
     public Matrix(int row, int column) {
         matrix = new double[row][column];
-
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < column; j++) {
-                matrix[i][j] = 0;
-            }
-        }
-
     }
 
     /**
@@ -43,6 +36,7 @@ public class Matrix {
                 throw new MatrixException("Array passed with zero number of columns");
             }
         }
+        this.matrix = twoDimensionalArray;
     }
 
     /**
@@ -112,12 +106,12 @@ public class Matrix {
      * @throws MatrixException if incompatible matrix sizes, returns message "Incompatible matrix sizes"
      */
     public Matrix addition(Matrix matrix) throws MatrixException {
-        Matrix resMatrix = new Matrix(this.matrix);
-        if (resMatrix.rows() == matrix.rows() && resMatrix.columns() == matrix.columns()){
-            for (int i = 0; i < resMatrix.rows(); i++) {
 
+        if (this.rows() == matrix.rows() && this.columns() == matrix.columns()){
+            Matrix resMatrix = new Matrix(rows(),columns());
+            for (int i = 0; i < resMatrix.rows(); i++) {
                 for (int j = 0; j < resMatrix.columns(); j++) {
-                    resMatrix.setValue(i,j,(resMatrix.getValue(i,j) + matrix.getValue(i,j)));
+                    resMatrix.setValue(i,j,(this.getValue(i,j) + matrix.getValue(i,j)));
                 }
             }
             return resMatrix;
@@ -135,12 +129,11 @@ public class Matrix {
      * @throws MatrixException if incompatible matrix sizes, returns message "Incompatible matrix sizes"
      */
     public Matrix subtraction(final Matrix matrix) throws MatrixException {
-        Matrix resMatrix = new Matrix(this.matrix);
-        if (resMatrix.rows() == matrix.rows() && resMatrix.columns() == matrix.columns()){
+        if (this.rows() == matrix.rows() && this.columns() == matrix.columns()){
+            Matrix resMatrix = new Matrix(rows(),columns());
             for (int i = 0; i < resMatrix.rows(); i++) {
-
                 for (int j = 0; j < resMatrix.columns(); j++) {
-                    resMatrix.setValue(i,j,(resMatrix.getValue(i,j) - matrix.getValue(i,j)));
+                    resMatrix.setValue(i,j,(this.getValue(i,j) - matrix.getValue(i,j)));
                 }
             }
             return resMatrix;
