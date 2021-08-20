@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 
 public class Matrix {
     private double[][] arrey;
+    private String errorMassage = "Incompatible matrix sizes";
 
 
     /**
@@ -75,7 +76,7 @@ public class Matrix {
         try {
             value = arrey[row][column];
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new MatrixException("Incompatible matrix sizes");
+            throw new MatrixException(errorMassage);
         }
 
         return value;
@@ -93,7 +94,7 @@ public class Matrix {
         try {
             arrey[row][column] = newValue;
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new MatrixException("Incompatible matrix sizes");
+            throw new MatrixException(errorMassage);
         }
     }
 
@@ -116,7 +117,7 @@ public class Matrix {
             }
             return resMatrix;
         } else {
-            throw new MatrixException("Incompatible matrix sizes");
+            throw new MatrixException(errorMassage);
         }
     }
 
@@ -138,7 +139,7 @@ public class Matrix {
             }
             return resMatrix;
         } else {
-            throw new MatrixException("Incompatible matrix sizes");
+            throw new MatrixException(errorMassage);
         }
     }
 
@@ -168,7 +169,7 @@ public class Matrix {
             }
             return resMatrix;
         } else {
-            throw new MatrixException("Incompatible matrix sizes");
+            throw new MatrixException(errorMassage);
         }
     }
 
