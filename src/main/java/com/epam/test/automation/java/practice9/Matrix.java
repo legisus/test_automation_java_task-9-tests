@@ -3,7 +3,7 @@ package com.epam.test.automation.java.practice9;
 import java.text.DecimalFormat;
 
 public class Matrix {
-    private double[][] matrix;
+    private double[][] arrey;
 
 
     /**
@@ -15,7 +15,7 @@ public class Matrix {
      * @return Returns a new instance of the matrix with the specified parameters
      */
     public Matrix(int row, int column) {
-        matrix = new double[row][column];
+        arrey = new double[row][column];
     }
 
     /**
@@ -32,25 +32,25 @@ public class Matrix {
             throw new MatrixException("Array passed with zero number of rows");
         }
         for (int i = 0; i < twoDimensionalArray.length; i++) {
-            if (twoDimensionalArray[i].length == 0){
+            if (twoDimensionalArray[i].length == 0) {
                 throw new MatrixException("Array passed with zero number of columns");
             }
         }
-        this.matrix = twoDimensionalArray;
+        this.arrey = twoDimensionalArray;
     }
 
     /**
      * @return Returns the number of rows in a matrix
      */
     public final int rows() {
-        return matrix.length;
+        return arrey.length;
     }
 
     /**
      * @return Returns the number of columns in a matrix
      */
     public final int columns() {
-        return matrix[0].length;
+        return arrey[0].length;
     }
 
     /**
@@ -59,7 +59,7 @@ public class Matrix {
      * @return Standard two-dimensional array
      */
     public double[][] twoDimensionalArrayOutOfMatrix() {
-        return matrix;
+        return arrey;
     }
 
     /**
@@ -73,12 +73,12 @@ public class Matrix {
     public double getValue(int row, int column) throws MatrixException {
         double value;
         try {
-            value = matrix[row][column];
+            value = arrey[row][column];
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new MatrixException("Incompatible matrix sizes");
         }
 
-       return value;
+        return value;
     }
 
     /**
@@ -91,7 +91,7 @@ public class Matrix {
      */
     public void setValue(int row, int column, double newValue) throws MatrixException {
         try {
-            matrix[row][column] = newValue;
+            arrey[row][column] = newValue;
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new MatrixException("Incompatible matrix sizes");
         }
@@ -107,15 +107,15 @@ public class Matrix {
      */
     public Matrix addition(Matrix matrix) throws MatrixException {
 
-        if (this.rows() == matrix.rows() && this.columns() == matrix.columns()){
-            Matrix resMatrix = new Matrix(rows(),columns());
+        if (this.rows() == matrix.rows() && this.columns() == matrix.columns()) {
+            Matrix resMatrix = new Matrix(rows(), columns());
             for (int i = 0; i < resMatrix.rows(); i++) {
                 for (int j = 0; j < resMatrix.columns(); j++) {
-                    resMatrix.setValue(i,j,(this.getValue(i,j) + matrix.getValue(i,j)));
+                    resMatrix.setValue(i, j, (this.getValue(i, j) + matrix.getValue(i, j)));
                 }
             }
             return resMatrix;
-        }else {
+        } else {
             throw new MatrixException("Incompatible matrix sizes");
         }
     }
@@ -129,15 +129,15 @@ public class Matrix {
      * @throws MatrixException if incompatible matrix sizes, returns message "Incompatible matrix sizes"
      */
     public Matrix subtraction(final Matrix matrix) throws MatrixException {
-        if (this.rows() == matrix.rows() && this.columns() == matrix.columns()){
-            Matrix resMatrix = new Matrix(rows(),columns());
+        if (this.rows() == matrix.rows() && this.columns() == matrix.columns()) {
+            Matrix resMatrix = new Matrix(rows(), columns());
             for (int i = 0; i < resMatrix.rows(); i++) {
                 for (int j = 0; j < resMatrix.columns(); j++) {
-                    resMatrix.setValue(i,j,(this.getValue(i,j) - matrix.getValue(i,j)));
+                    resMatrix.setValue(i, j, (this.getValue(i, j) - matrix.getValue(i, j)));
                 }
             }
             return resMatrix;
-        }else {
+        } else {
             throw new MatrixException("Incompatible matrix sizes");
         }
     }
@@ -151,8 +151,25 @@ public class Matrix {
      * @throws MatrixException if incompatible matrix sizes, returns message "Incompatible matrix sizes"
      */
     public Matrix multiplication(final Matrix matrix) throws MatrixException {
-        //TODO: Delete line below and write your own solution;
-        throw new UnsupportedOperationException();
+        if (this.rows() == matrix.columns() && this.columns() == matrix.rows()) {
+            int size = Math.min(this.rows(), matrix.rows());
+            Matrix resMatrix = new Matrix(size, size);
+
+            for (int i = 0; i < this.rows(); i++) {
+
+                for (int k = 0; k < matrix.columns(); k++) {
+                    double temp = 0;
+
+                    for (int j = 0; j < matrix.columns(); j++) {
+                        temp += this.arrey[i][j] * matrix.arrey[j][k];
+                    }
+                    resMatrix.setValue(i, k, temp);
+                }
+            }
+            return resMatrix;
+        } else {
+            throw new MatrixException("Incompatible matrix sizes");
+        }
     }
 
     @Override
